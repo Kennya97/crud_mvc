@@ -7,6 +7,7 @@ import Modelo.Persona;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,14 +80,12 @@ public boolean add(Persona per) {
 String sql="insert into tb_persona(dui, nombre, apellido)values('"+per.getDui()+"' , '"+per.getNombre()+"', '"+per.getApellido()+"' )";             
 
 try{
-con =cn.getConnection();
-ps=con.prepareStatement(sql);
-ps.executeUpdate();
+    con = cn.getConnection();
+    ps = con.prepareStatement(sql);
+    ps.executeUpdate();
 
-
-
-}catch(Exception e){
-
+}catch(SQLException e){
+    System.out.println("datos "+ e.getMessage());
 }
 return false;
 }
@@ -95,15 +94,15 @@ return false;
 
  public boolean edit(Persona per) {
      
-String sql="update tb_persona set dui='"+per.getDui()+"' ,nombre '"+per.getNombre()+"',apellido '"+per.getApellido()+"' where id="+per.getId();             
+String sql="update tb_persona set dui='"+per.getDui()+"' ,nombre ='"+per.getNombre()+"',apellido ='"+per.getApellido()+"' where id="+per.getId();             
 try{
 
 con=cn.getConnection();
 ps=con.prepareStatement(sql);
 ps.executeUpdate();
 
-}catch(Exception e){
-    
+}catch(SQLException e){
+    System.out.println("Error "+e.getMessage());
 }  
 return false;
 
